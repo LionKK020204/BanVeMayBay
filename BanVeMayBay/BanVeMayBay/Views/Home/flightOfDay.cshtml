@@ -1,0 +1,102 @@
+﻿
+@model IEnumerable<BanVeMayBay.Models.ticket>
+@{
+    ViewBag.Title = "flightSearch";
+    Layout = "~/Views/Shared/_layOutSite.cshtml";
+}
+<style>
+    .flight_button-form {
+        width: 70px;
+        height: 34px;
+        margin: 50px 0;
+        float: right;
+        background-color: #D60D45;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+    }
+
+        .flight_button-form a {
+            color: #fff;
+        }
+
+        .flight_button-form:hover {
+            background-color: #ee6acf;
+        }
+</style>
+<section class="flight-destinations">
+    <div class="container-fluid bg-white">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="flight-head">
+                    <div class="">
+                        <nav aria-label="breadcrumb">
+                            @{var Date = ViewBag.dateNow; }
+                            <span style="font-weight:bold; font-size:22px;"><i class="fas fa-fighter-jet"></i> Chuyến bay trong ngày: @Date.ToString("dd/MM/yyyy") </span>
+
+                        </nav>
+                    </div>
+                </div>
+               
+                <div class="flight-table">
+                    <table id="myTable1">
+                        <thead>
+                            <tr>
+                                <th>Hãng bay</th>
+                                <th>Tên hãng bay</th>
+                                <th>Nơi đi</th>
+                                <th>Nơi đến</th>
+                                <th>Chi tiết</th>
+
+                                <th>Giá vé</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <img style="width:80px;height:80px" src="~/public/images/flight/@item.airline" alt="">
+                                    </td>
+                                    <td>
+                                        <h6>@item.name</h6>
+                                        
+                                    </td>
+                                    <td>
+                                        <h6>@item.city.cityName</h6>
+                                        <p>Sân bay (@item.city.cityName)</p>
+                                    </td>
+                                    <td>
+                                        <h6>@item.city1.cityName</h6>
+                                        <P>Sân bay (@item.city1.cityName)</P>
+                                    </td>
+                                    <td>
+                                        <a href="~/chuyen-bay/@item.id">Detail</a>
+                                    </td>
+
+                                    <td>
+                                        <h6><strong class="color-red-3">@item.price.Value.ToString("N0") VNĐ</strong></h6>
+                                        
+                                    </td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flight_button-form">
+                    <a href="javascript:void(0);" onclick="window.history.back();">trở về</a>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</section>

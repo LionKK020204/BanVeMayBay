@@ -1,0 +1,114 @@
+﻿@*@model IEnumerable<BanVeMayBay.Models.menu>*@
+    <style>
+        .header {
+            background-color: #00c6a9;
+            font-family: "Arial", sans-serif;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            margin-bottom:80px;
+        }
+
+        .container-header {
+            width: 100%;
+        }
+
+        .haeder_navbar {
+            display:flex;
+            align-items:center;
+        }
+
+        .header_navbar-form {
+            display: flex;
+            justify-content: space-between;
+            height:auto;
+            padding: 0 70px;
+            width: 100%;
+        }
+
+        .header_list {
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            margin-right: 30px;
+            font-size: 20px;
+            font-weight: 500;
+            color: #fff;
+        }
+        nav-item:hover {
+            color: #000;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+        }
+            .nav-link:hover{
+                color:#000;
+            }
+            .header_list {
+            }
+
+        .header_list-login {
+        }
+
+        .header_list-login-name {
+        }      
+    </style>
+
+<header class="header_section">
+    <div class="header">
+        <div class="container-header">
+            <nav class="haeder_navbar">
+                <img style="height:100px;width:100px; margin:0 20px 0 50px;" src="~/Public/images/flight/logo.jpg" />
+                <div class="header_navbar-form" id="header_navbar-form">
+
+                    <div class="header_list">
+
+                        <ul class="navbar-nav">                   
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home">Trang chủ </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/all-chuyen-bay">Chuyến bay</a>
+
+                            </li>
+                            @if (ViewBag.sessionFullname != null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","MyTicket")">Vé của tôi </a>
+
+                                </li>
+                            }
+
+
+                        </ul>
+                    </div>
+                    <div class="header_list">
+                        <ul class="navbar-nav">
+                            @if (ViewBag.sessionFullname != null)
+                            {
+
+
+                                <li class="nav-item"><a class="nav-link" href="~/tai-khoan"><i class="fas fa-user"></i> @ViewBag.sessionFullname</a></li>
+
+                                <li class="nav-item"><a class="nav-link" href="~/Customer/logout">Đăng xuất</a></li>
+                            }
+                            else
+                            {
+                                <li class="nav-item"> <a class="nav-link" style="color:white" href="~/dang-nhap"><i class="fa fa-unlock-alt"></i> Đăng nhập</a></li>
+                                <li class="nav-item"><a class="nav-link" style="color:white" href="~/dang-ky"><i class="fa fa-user-plus"></i> Đăng ký</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>

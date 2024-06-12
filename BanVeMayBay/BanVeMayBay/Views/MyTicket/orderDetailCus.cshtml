@@ -1,0 +1,106 @@
+﻿@model BanVeMayBay.Models.order
+@{
+    ViewBag.Title = "orderDetailCus";
+    Layout = "~/Views/Shared/_layOutSite.cshtml";
+}
+
+
+<section class="booking">
+    <div class="container bg-white" style="margin-bottom:50px">
+        <div class="row">
+            <div class="booking-confirmed booking-outer" @*style="margin-top: 90px;*@>
+                <div class="col-md-8">
+                    <div class="confirmation-title">
+                        <div class="form-title form-title-1">
+                            <h2 class="text-danger">Thông tin đặt vé</h2>
+                        </div>
+                        <p class="text-success">Thông tin cụ thể đã được gửi tới email của bạn.</p>
+                        <div class="payment-info detail">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="confirmation-details detail">
+
+                                        <h3>Chi tiết đặt vé</h3>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="title">Mã đặt vé</td>
+                                                    <td class="b-id">@Model.ID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="title">Tên khách hàng</td>
+                                                    <td>@Model.name </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="title">Email</td>
+                                                    <td>@Model.email</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="title">Số điện thoại</td>
+                                                    <td>@Model.phone</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="title">Số lượng vé</td>
+                                                    <td>@Model.guestTotal</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="title">Giới tính</td>
+                                                    <td>@Model.gioitinh</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="title">Quốc tịch</td>
+                                                    <td>@Model.quoctich</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="title">Ngày đặt</td>
+                                                    <td>@Model.created_ate.ToString("dd-MM-yyy")</td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td class="title">Tổng tiền:</td>
+                                                    <td><h4 class="text-danger"> @Model.total.ToString("N0") đ</h4></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4" style="margin-top: 120px;left:10px">
+                @Html.Action("_BookingConnfig", "Checkout", new { orderId = Model.ID })
+                <h3> Tổng tiền: @Model.total.ToString("N0") VNĐ</h3>
+
+                @*<div class="billing-back-btn" style="display:flex">
+                    <div class="billing-btn" style="margin-right:10px;">
+
+                        <a class="btn-blue btn-red btn-style-1 " href="/Customer/canelOrder?OrderId=@Model.ID">Cancel Booking</a>
+                    </div>
+
+                </div>*@
+            </div>
+            
+        </div>
+        
+        <div class="flight_button-form" style="background-color: rgb(247, 7, 163);color:#fff;width:100px;height:40px;margin-top:50px;float:left">
+            <a style="display:flex;justify-content:center;padding:8px 0" href="javascript:void(0);" onclick="window.history.back();">trở về</a>
+        </div>
+    </div>
+</section>
+<style>
+    .flight_button-form a {
+        color: #fff;
+    }
+
+    .flight_button-form:hover {
+        background-color: #ee6acf;
+    }
+</style>

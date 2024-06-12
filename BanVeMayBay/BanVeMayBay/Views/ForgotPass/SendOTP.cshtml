@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "SendOTP";
+    Layout = "~/Views/Shared/_layOutSite.cshtml";
+}
+<form method="post">
+    <span class="text-danger">@ViewBag.error</span>
+    <input type="text" name="enterotp" placeholder="Nhập mã OTP" />
+    <button type="submit">Gửi</button>
+</form>

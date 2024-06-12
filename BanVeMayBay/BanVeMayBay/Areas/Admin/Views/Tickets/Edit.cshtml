@@ -1,0 +1,246 @@
+﻿@model BanVeMayBay.Models.ticket
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_layOutAdmin.cshtml";
+}
+<style>
+    .button {
+        width: 100px;
+        height: 100px;
+        margin-left: 50%;
+        border: 1px solid rgb(173, 173, 174);
+        margin-top: 20px;
+        border-radius: 4px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.3);
+    }
+</style>
+
+<div class="card card-title bg-white p-1">
+    <div class="row">
+        <div class="col-md-6 "> <h5 class="pl-2 mt-2 text-blues">Cập nhật vé</h5> </div>
+        <div class="col-md-6 m-0">
+            <ol class="breadcrumb bg-white float-sm-right m-0">
+                <li class="breadcrumb-item"><a href="/Admin">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Cập nhật vé</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<section class="card card-title bg-white p-1">
+    @Html.Partial("_MessgeAlert")
+    <div class="container bg-white pt-4 " style="margin-bottom:30px">
+
+        @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class=" row ">
+                <div class="col-md-4">  </div>
+                <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success ">Cập nhật vé</h3> </div>
+                <div class="col-md-4 ">
+                    <div class="float-right">
+                        <button class="btn btn-sm bg-success text-white"><i class="far fa-save"></i>Lưu</button>
+                        <a href="~/admin/Tickets" class="btn btn-sm bg-danger btn-custom  text-white"><i class="far fa-window-close"></i> Hủy</a>
+                    </div>
+                </div>
+            </div>
+            <div class=" row ">
+                <div class="col-md-10">
+                   
+                    <div>
+
+                        <label for="psw"><span class="text-secondary font-weight-bold">Hãng máy bay</span></label>
+                        <input id="imageInput" type="file" class="form-control" name="airline" accept="image/*" required />
+                        <div id="imageContainer" class="button"></div>
+
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Tên vé máy bay</span></label>
+
+                        <input type="text" name="name" class="form-control" value="@Model.name" required />
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Chi tiết vé</span></label>
+                        <input type="text" name="description" class="form-control" value="@Model.description" required />
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-5 ">
+
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Nơi đi</span></label>
+                        <select name="fromAirport" class="selectpicker form-control" tabindex="1">
+
+                            @foreach (var item in ViewBag.cities)
+                            {
+                                <option value="@Model.city.cityId">@Model.city.cityName</option>
+                                <option value="@item.cityId">@item.cityName</option>
+                            }
+
+
+                        </select>
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Nơi đến</span></label>
+                        <select name="toAirport" class="selectpicker form-control" tabindex="1">
+
+                            @foreach (var item in ViewBag.cities)
+                            {
+                                <option value="@Model.city1.cityId">@Model.city1.cityName</option>
+                                <option value="@item.cityId">@item.cityName</option>
+                            }
+
+
+                        </select>
+
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Mã chuyến  bay</span></label>
+                        <input type="text" name="flightCode" class="form-control" value="@Model.flightCode" placeholder="" required />
+                        <span asp-validation-for="flight" class="text-danger"></span>
+                    </div>
+
+
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Hạng vé</span></label>
+                        <select name="ticketType" class="selectpicker form-control" selected value="@Model.ticketType">
+                            @Model.ticketType tabindex="1">
+                        @*<option selected value="@Model.ticketType">@Model.ticketType</option>*@
+
+                        <option value="Hạng phổ thông">Hạng phổ thông</option>
+                        <option value="Hạng thương gia">Hạng thương gia</option>
+                    </select>
+
+                </div>
+
+
+                <div>
+                    <label for="psw"><span class="text-secondary font-weight-bold">Số chỗ ngồi</span></label>
+                    <input type="number" name="guestTotal" class="form-control" value="@Model.guestTotal" placeholder="số chỗ > 50" required min="50" />
+                    <span asp-validation-for="guestTotal" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="col-md-5">
+                <div>
+
+                    <label for="psw"><span class="text-secondary font-weight-bold">Ngày bay</span></label>
+                    <input type="date" name="departure_date" class="form-control" value="@Model.departure_date.Value.ToString("yyyy-MM-dd")" />
+
+                </div>
+                <div>
+                    <label for="psw"><span class="text-secondary font-weight-bold">Giờ bay</span></label>
+                    <input type="time" name="departure_time" class="form-control" value="@Model.departure_time" required />
+
+
+                </div>
+                <div>
+                    <label for="psw"><span class="text-secondary font-weight-bold">Giờ đến</span></label>
+                    <input type="time" name="arrival_time" class="form-control" value="@Model.arrival_time" required />
+
+
+                </div>
+                
+                <div>
+                    <label for="psw"><span class="text-secondary font-weight-bold">Giá vé</span></label>
+                    <input type="number" name="price" class="form-control" placeholder="Việt Nam đồng" value="@Model.price" @*required min="30" max="3000"*@ />
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="psw"><span class="text-secondary font-weight-bold">Trạng thái</span></label>
+                    <select name="status" class="selectpicker form-control" tabindex="1">
+                        <option value="1">Hiện</option>
+                        <option value="2">Ẩn</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+ 
+</section>
+
+<script>
+    $("#form-search").submit(function (event) {
+        $("#ngaybay").text("");
+        $("#ngayve").text("");
+        var ngaybay = $("#departure_date").val();
+        var ngayve = $("#arrival_date").val();
+        var typeticket = $("#ticketCheck").val();
+
+
+        if (ngaybay == "Ngày Bay") {
+            $("#ngaybay").text("Vui lồng chọn ngày bay");
+
+            return false;
+
+        }
+        if (typeticket == 2) {
+            if (ngayve == "Ngày về") {
+                $("#ngayve").text("PVui lòng chọn ngày về");
+                return false
+            }
+            else {
+                return true;
+            }
+        }
+        return true;
+
+    });
+    $(document).ready(function () {
+        // By Default Disable radio button
+        $("#arrival_date").attr('disabled', true);
+        $("form input:radio").change(function () {
+            if ($(this).val() == "enable") {
+                $("#arrival_date").attr('disabled', false);
+                $("#ticketCheck").val(2);
+            }
+            else {
+                $("#arrival_date").attr('disabled', true);
+                $("#ticketCheck").val(1);
+            }
+        });
+    });
+
+    // Lấy tham chiếu đến input chứa tập tin hình ảnh
+    var imageInput = document.getElementById("imageInput");
+
+    // Lắng nghe sự kiện thay đổi khi người dùng chọn tập tin hình ảnh mới
+    imageInput.addEventListener("change", function (event) {
+        // Kiểm tra xem người dùng đã chọn tập tin hình ảnh chưa
+        if (imageInput.files && imageInput.files[0]) {
+            // Lấy tập tin hình ảnh từ input
+            var imageFile = imageInput.files[0];
+
+            // Tạo một đối tượng FileReader để đọc nội dung của tập tin
+            var reader = new FileReader();
+
+            // Định nghĩa hàm xử lý khi FileReader hoàn thành việc đọc tập tin
+            reader.onload = function (event) {
+                // Tạo một thẻ img để hiển thị ảnh
+                var imageElement = document.createElement("img");
+
+                // Đặt thuộc tính src của thẻ img bằng dữ liệu ảnh đã đọc được
+                imageElement.src = event.target.result;
+
+                // Thêm thẻ img vào phần tử container để hiển thị ảnh
+                var imageContainer = document.getElementById("imageContainer");
+                imageContainer.innerHTML = ''; // Xóa bất kỳ ảnh nào đã hiển thị trước đó
+                imageContainer.appendChild(imageElement);
+                //imageInput.style.display = "none";
+                imageContainer.style.border = "none";
+            };
+
+            // Đọc tập tin hình ảnh như một chuỗi dữ liệu URL
+            reader.readAsDataURL(imageFile);
+        }
+    });
+</script>

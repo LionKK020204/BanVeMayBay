@@ -1,0 +1,347 @@
+﻿
+@{
+    ViewBag.Title = "GetStatisticalyear";
+    Layout = "~/Areas/Admin/Views/Shared/_layOutAdmin.cshtml";
+}
+
+<style>
+    .container_header-form {
+        margin-top: 50px;
+    }
+
+    .container_header-form-list {
+        display: flex;
+        list-style: none;
+        justify-content: space-around;
+        padding: 0;
+    }
+
+    .container_header-form-item {
+        display: flex;
+    }
+
+        .container_header-form-item i {
+            margin: 0;
+            font-size: 50px;
+            color: #fff;
+            width: 130px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #d75d25;
+        }
+
+        .container_header-form-item:nth-child(2) i {
+            background-color: #252ed7;
+        }
+
+        .container_header-form-item:nth-child(3) i {
+            background-color: #25d74c;
+        }
+
+        .container_header-form-item:nth-child(4) i {
+            background-color: #d7259f;
+        }
+
+    .container_header-form-item-span {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: 0 4px;
+        width: 150px;
+        font-size: 14px;
+        color: #767676;
+        border: 1px solid #ededed;
+    }
+
+    .active-span {
+        font-weight: 700;
+        color: #000;
+    }
+</style>
+<section>
+    <!-- BAR CHART -->
+    <div style="display:flex;margin-bottom:20px">
+        <a href="@Url.Action("Index", "Dashboard")" style="margin-right: 10px; border: none; background-color: rgb(34, 14, 211);color:#fff">
+            <button class="container_form-header-add">
+
+                Theo ngày
+            </button>
+        </a>
+        <a href="@Url.Action("GetStatisticalyear", "Dashboard")">
+            <button class="container_form-header-add" style="background-color: #28a745; border: none; color: #fff">
+
+                Theo năm
+            </button>
+        </a>
+    </div>
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">Thống kê</h3>
+
+            @*<div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>*@
+
+            @*<form method="get" action="@Url.Action("GetStatistical", "Statistical")">*@
+            <label for="Year">Start Year:</label>
+            <input type="number" id="Year" name="year" value="2024">
+
+            <button id="submitButton" type="submit" style=" height:30px;margin-left:10px;color: #fff; background-color: green; border: none; border-radius: 4px ">Submit</button>
+
+
+
+        </div>
+        <div class="container_header-form">
+            <ul class="container_header-form-list">
+                <li class="container_header-form-item">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <div class="container_header-form-item-span">
+                        <span>Lượt truy cập</span>
+                        <span class="active-span">@ViewBag.Songuoitruycap</span>
+                    </div>
+                </li>
+                <li class="container_header-form-item">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <div class="container_header-form-item-span">
+                        <span>Số lượng khách hàng</span>
+                        <span id="tongkhach" class="active-span"></span>
+                    </div>
+                </li>
+                <li class="container_header-form-item">
+                    <i class="fa fa-ticket" aria-hidden="true"></i>
+                    <div class="container_header-form-item-span">
+                        <span>Tổng số vé đã bán</span>
+                        <span id="tongve" class="active-span"></span>
+                    </div>
+
+                </li>
+                <li class="container_header-form-item">
+                    <i class="fas fa-money-bill" " aria-hidden="true"></i>
+
+                    <div class="container_header-form-item-span">
+                        <span>doanh thu</span>
+                        <span id="tongtien" class="active-span"></span>
+
+                    </div>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="chart" style="display: flex; justify-content: space-between; margin-top: 70px">
+                <canvas id="barChart1" style="min-height: 500px; height: auto; max-height: 250px; max-width: 45%;"></canvas>
+                <canvas id="barChart2" style="min-height: 500px; height: auto; max-height: 250px; max-width: 45%;"></canvas>
+            </div>
+        </div>
+        <div style="display:flex;justify-content:center">
+            <table class="table table-bordered" style="width:95%;">
+                <thead>
+                    <tr>
+                        <th>Tháng</th>
+                        <th>Số vé</th>
+                        <th>Doanh thu(VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody id="load_data">
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</section>
+<!-- /.card -->
+@section scripts{
+    <script src="~/Public/plugins/chart.js/Chart.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    @*<script src="~/Public/plugins/jquery-ui/jquery-ui.min.js"></script>*@
+    <link href="~/Public/css/all-min.css" rel="stylesheet" />
+    <script src="~/Public/plugins/moment/moment.min.js"></script>
+
+
+    <script>
+
+        $('#submitButton').click(function () {
+            // Lấy giá trị từ hai thẻ input
+            var Year = $('#Year').val();
+
+
+            // Gọi AJAX request với dữ liệu từ hai thẻ input
+            $.ajax({
+                url: '/Dashboard/GetStatisticalyear2',
+                type: 'GET',
+                data: { year: Year, },
+                success: function (rs) {
+                    console.log(rs.Data);
+                    RegisterBarChart(rs.Data);
+                    load_data(rs.Data);
+                    tongtien(rs.Data);
+                    tongve(rs.Data);
+                    tongkhach(rs.Data);
+                }
+            });
+        });
+
+
+
+        function RegisterBarChart(Data)
+        {
+
+            var lslabel = [];
+            var lsTotalTicket = [];
+            var lsPrice = [];
+            $.each(Data, function (index, item) {
+
+                lsTotalTicket.push(item.TotalQuanty);
+
+                lsPrice.push(item.Total);
+                console.log(item.Month);
+                var s = 'Tháng ' + item.Month;
+                lslabel.push(s);
+
+            });
+
+            var ctx1 = document.getElementById('barChart1');
+
+
+            var barChartData1 = {
+                labels: lslabel,
+                datasets: [
+                    {
+                        label: 'Tổng vé',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        fill: false,
+                        borderWidth: 1,
+                        data: lsTotalTicket,
+                        scales: {
+                            y: {
+                                beginAtZero: true // Bắt đầu từ 0 trên trục y
+                            }
+
+                        }
+                    },
+                    //{
+                    //    label: 'Tổng tiền',
+                    //    backgroundColor: 'white',
+                    //    borderColor: 'rgba(54, 162, 235, 1)',
+                    //    fill: false,
+                    //    borderWidth: 1,
+                    //    data: lsPrice,
+                    //    scales: {
+                    //        y: {
+                    //            beginAtZero: true // Bắt đầu từ 0 trên trục y
+                    //        }
+
+                    //    }
+
+                    //}
+                ]
+            };
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true // Bắt đầu từ 0 trên trục y
+                    }
+
+                }
+            };
+
+
+            var myBarChart1 = new Chart(ctx1, {
+                type: 'bar',
+                data: barChartData1,
+                options: options
+
+            });
+            var ctx2 = document.getElementById('barChart2');
+            var barChartData2 = {
+                labels: lslabel,
+                datasets: [
+                    //{
+                    //    label: 'Tổng vé',
+                    //    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    //    borderColor: 'rgba(54, 162, 235, 1)',
+                    //    fill: false,
+                    //    borderWidth: 1,
+                    //    data: lsTotalTicket,
+                    //    scales: {
+                    //        y: {
+                    //            beginAtZero: true // Bắt đầu từ 0 trên trục y
+                    //        }
+
+                    //    }
+                    //},
+                    {
+                        label: 'Tổng tiền',
+                        backgroundColor: 'blue',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        fill: false,
+                        borderWidth: 1,
+                        data: lsPrice,
+                        scales: {
+                            y: {
+                                beginAtZero: true // Bắt đầu từ 0 trên trục y
+                            }
+
+                        }
+
+                    }
+                ]
+            };
+
+            var myBarChart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: barChartData2,
+                options: options
+
+            });
+        }
+        function load_data(data) {
+            var strHtml = "";
+            $.each(data, function (i, item) {
+                var strDate = moment(item.Date).format('DD/MM/yyyy');
+                strHtml += "<tr>"
+                strHtml += "<td>" + item.Month + "</td>";
+                strHtml += "<td>" + item.TotalQuanty + "</td>";
+                strHtml += "<td>" + item.Total + "</td>";
+                strHtml += "</tr>"
+            });
+            $('#load_data').html(strHtml);
+        }
+        function tongtien(data) {
+            var strHtml = "";
+            var tongtien = 0; // Khởi tạo biến tongtien với giá trị ban đầu là 0
+            $.each(data, function (i, item) {
+                tongtien += parseFloat(item.Total); // Ép kiểu i.Total thành float và cộng vào tổng tiền
+            });
+            strHtml += "<span>" + tongtien + "</span>";
+            $('#tongtien').html(strHtml);
+        }
+        function tongve(data) {
+            var strHtml = "";
+            var tongve = 0; // Khởi tạo biến tongtien với giá trị ban đầu là 0
+            $.each(data, function (i, item) {
+                tongve += parseInt(item.TotalQuanty); // Ép kiểu i.Total thành float và cộng vào tổng tiền
+            });
+            strHtml += "<span>" + tongve + "</span>";
+            $('#tongve').html(strHtml);
+        }
+        function tongkhach(data) {
+            var strHtml = "";
+            var tongkhach = 0; // Khởi tạo biến tongtien với giá trị ban đầu là 0
+            $.each(data, function (i, item) {
+                tongkhach += parseInt(item.num); // Ép kiểu i.Total thành float và cộng vào tổng tiền
+            });
+            strHtml += "<span>" + tongkhach + "</span>";
+            $('#tongkhach').html(strHtml);
+        }
+    </script>
+}

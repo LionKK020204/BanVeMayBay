@@ -1,0 +1,800 @@
+﻿@model IEnumerable<BanVeMayBay.Models.ticket>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layOutSite.cshtml";
+}
+<style>
+    .container_form {
+        width: 80%;
+        margin: 50px 10%;
+        background-color: #fff;
+        padding: 50px 0;
+        border-radius: 4px;
+        font-size: 18px;
+        font: bold;
+    }
+
+    .container_form-name {
+        font-weight: 400;
+        font-size: 24px;
+        display: flex;
+        color: #333;
+        margin-bottom: 30px;
+        margin-left: 50px;
+    }
+
+    .container_form-name-icon {
+        margin-right: 6px;
+        position: relative;
+        top: 2px;
+    }
+
+    .container_form-icon {
+        font-size: 100px;
+        display: flex;
+        justify-content: center;
+        color: #09b298;
+        margin-bottom: 30px;
+    }
+
+    .container_form-name-gender {
+        margin: 20px 0;
+        display: flex;
+    }
+
+    .container_form-fullname {
+        display: flex;
+        flex-direction: column;
+        margin: 0px 100px 0px 50px;
+    }
+
+    .container_form-gender-female {
+        margin-left: 50px;
+    }
+
+    .container_form-gender-radio {
+        position: relative;
+        top: 10px;
+    }
+
+    .container_form-dayofbirth {
+        display: flex;
+        flex-direction: column;
+        margin: 0 100px 0 0;
+    }
+
+    .container_form-contact {
+        display: flex;
+        margin: 20px 0;
+    }
+
+    .container_form-contact-email {
+        display: flex;
+        flex-direction: column;
+        margin: 0 100px 0 50px;
+    }
+
+    .container_form-contact-sdt {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container_form-account {
+        display: flex;
+    }
+
+    .container_form-createday {
+        margin: 20px 50px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container_form-password {
+        margin: 20px 50px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-input {
+        width: 300px;
+        height: 40px;
+        border-radius: 8px;
+        border: 2px solid #029c94;
+        padding-left: 5px;
+        border-bottom: 2px solid #171717;
+    }
+
+    .container-input-small {
+        width: 200px;
+    }
+
+    .container-label {
+        margin-bottom: 5px;
+        color: #6b6b6b;
+    }
+
+    .container_form-button {
+        display: flex;
+        margin: 30px 0 0 50px;
+    }
+
+    .container_form-button-edit {
+        width: 100px;
+        height: 36px;
+        margin-right: 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+        .container_form-button-edit:hover {
+            background-color: #cfcece;
+        }
+
+    .container_form-button-update {
+        width: 100px;
+        height: 36px;
+        border: none;
+        background-color: #2688eb;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+        .container_form-button-update:hover {
+            background-color: #0560bb;
+        }
+
+    /* vé */
+    .container_ticket {
+        width: 100%;
+        height: auto;
+        background-color: #fff;
+        padding: 20px;
+        font-size: 20px;
+        border-radius: 8px;
+    }
+
+    .form_ticket {
+        margin-top: 20px;
+        margin-left: 5%;
+        width: 90%;
+        box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.3);
+        
+    }
+
+    .container_ticket-name {
+        font-size: 24px;
+        border-bottom: 1px solid #333;
+    }
+
+    .container_ticket-list {
+        list-style: none;
+        text-decoration: none;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .container_ticket-airline {
+        color: #f55656;
+        position: relative;
+        top: -10px;
+    }
+
+        .container_ticket-airline span {
+            position: relative;
+            top: 10px;
+        }
+
+    .container_ticket-airline-img {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        border-radius: 4px;
+        position: relative;
+        top: 8px;
+    }
+
+    .container_ticket-time {
+        display: flex;
+        text-decoration: none;
+        list-style: none;
+        font-weight: 700;
+    }
+
+    .container_ticket-timeStart {
+    }
+
+    .container_ticket-time-iconplane {
+        position: relative;
+        top: -15px;
+    }
+
+    .container_ticket-time-iconbuild {
+        margin-left: 4px;
+    }
+
+    .container_ticket-timeEnd--active span {
+        position: relative;
+        top: -20px;
+        left: -36px;
+        color: #0437ef;
+        font-weight: 400;
+    }
+
+    .container_ticket-time-icon {
+        margin: 0 50px;
+    }
+
+    .container_ticket-timeTrip {
+        position: relative;
+        top: 25px;
+        left: -49%;
+        font-size: 18px;
+        font-weight: 400;
+        color: #5577f5;
+    }
+
+    .container_ticket-price {
+        font-weight: 700;
+        color: #0437ef;
+    }
+
+    .container_ticket-button {
+        margin: 20px 0 10px 0;
+        width: 100%;
+        display: block;
+    }
+
+    .container_ticket-confirm {
+        position: relative;
+        right: -90%;
+        font-size: 20px;
+        font-weight: 700;
+        width: 120px;
+        height: 35px;
+        border-radius: 4px;
+        background-color: rgb(54, 214, 254);
+        border: none;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .container_ticket-confirm:hover {
+            background-color: rgb(155, 224, 247)
+        }
+
+        .container_ticket-confirm:active {
+            background-color: rgb(54, 214, 254);
+        }
+    /* chi tiết */
+    .form-detail-container {
+        background-color: #c3c1c1;
+        padding: 20px 0 10px;
+    }
+
+    .form_detail {
+        background-color: #fff;
+        width: 80%;
+        margin: 0px 10%;
+        box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .form_detail-name {
+        font-size: 20px;
+        border-bottom: 1px solid #a3a3a3;
+        margin: 0 10px;
+    }
+
+    .form_detail-ticket {
+    }
+
+    .form_detail-ticket-list {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form_detail-ticket-item {
+        border-right: 1px solid #e2e1e1;
+        margin: 10px 10px;
+        display: flex;
+        flex-direction: column;
+        padding-right: 10px;
+    }
+
+        .form_detail-ticket-item:first-child {
+            margin-left: 0;
+        }
+
+        .form_detail-ticket-item:last-child {
+            border: none;
+        }
+
+    .form_detail-logo {
+        width: 150px;
+        height: 100px;
+    }
+
+    .form_detail-ticket-item-name {
+        font-size: 16px;
+        margin-top: 4px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form_detail-location {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .form_detail-location-airport {
+        font-size: 18px;
+        color: #0437ef;
+    }
+
+    .form_detail-time {
+        font-size: 16px;
+    }
+
+    .form_detail-time-hour {
+        font-weight: 700;
+    }
+
+    .form_detail-time-day {
+    }
+
+    .form_detail-trip {
+    }
+
+    .form_detail-plane-name {
+        font-size: 18px;
+    }
+
+    .form_detail-trip-id {
+        font-size: 20px;
+        font-weight: 700;
+        color: #c3c1c1;
+    }
+
+    .container_form-ticket-link {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .container_form-ticket-button {
+        margin-bottom: 50px;
+        height: 36px;
+        background-color: #0437ef;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+    }
+</style>
+<style>
+    .quote_btn-container-login {
+        border: 3px solid #fff;
+        border-radius: 8px;
+        padding: 4px 8px;
+    }
+
+    .content {
+        display: flex;
+        width: 100%;
+        height: auto;
+        background-color: #f6f3f3;
+    }
+    /*  container*/
+    .containers {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form {
+        display: flex;
+    }
+
+    .form_pay {
+        margin: 50px 0;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border-bottom: 4px solid #000;
+    }
+
+    .form_order {
+        margin: 20px 20px 40px 50px;
+    }
+
+    .form_order-name img {
+        width: 70px;
+        height: 70px;
+        border: 2px solid #e9e9e9;
+    }
+
+    .form_order-name {
+        margin-bottom: 40px;
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 16px;
+        color: #057109;
+    }
+
+    .form_order-code img {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #e9e9e9;
+    }
+
+    .form_order-code {
+        margin-bottom: 40px;
+    }
+
+    .form_order-price {
+        color: #757373;
+        font-size: 20px;
+    }
+
+    .form_order-price-name {
+        color: #f60a0a;
+    }
+
+    .form_pay-header {
+        display: flex;
+        margin: 50px;
+    }
+
+    .form_pay-header-name {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 50px;
+        width: 400px;
+        color: rgb(38, 14, 146);
+    }
+
+    .form_pay-header-signup {
+        position: relative;
+        top: 12px;
+        left: 40px;
+        width: 100px;
+        color: blue;
+    }
+
+    .form_pay-container {
+        display: flex;
+    }
+
+    .form_pay-container-menu {
+        list-style: none;
+        width: 100%;
+    }
+
+    .form_pay-container-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        width:95%;
+    }
+
+    .form_pay-container-item-label {
+        margin-bottom: 0;
+        color: #0f0f63;
+    }
+
+    .form_pay-container-item-input {
+        display: block;
+        width: 90%;
+        margin-bottom: 10px;
+        height: 36px;
+        border-radius: 4px;
+        border-color: rgb(7, 187, 247);
+        border-bottom: 2px solid #000;
+    }
+
+    .form_pay-footer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form_pay-footer-link {
+        position: relative;
+        left: 300px;
+        margin: 10px 0;
+        top: -30px;
+    }
+
+    .form_pay-footer-button {
+        margin: 0 25px 70px;
+        width: 88%;
+        height: 36px;
+        border-radius: 6px;
+        background-color: rgb(10, 246, 246);
+        border: none;
+        color: #fff;
+    }
+    .hidden{
+        display:none;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var radio1 = document.getElementById('radio1');
+        var radio2 = document.getElementById('radio2');
+        var divToShow = document.getElementById('divToShow');
+        var divTonone = document.getElementById('booking');
+        radio1.addEventListener('change', function () {
+            if (radio1.checked) {
+                divToShow.style.display = 'block';
+            } else {
+                divToShow.style.display = 'none';
+                
+            }
+        });
+
+        radio2.addEventListener('change', function () {
+            if (radio2.checked) {
+                divToShow.style.display = 'none';
+            } else {
+                divToShow.style.display = 'block';
+            }
+        });
+    });
+</script>
+<section  class="booking">
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="booking-form booking-outer">
+                    <div class="payment-info detail" style="padding-top: 100px;">
+                        <div class="row">
+                            @if (Model.Count() > 1)
+                            {
+                                <h4 class="text-danger " style="margin-left: 30px; font-size:40px;">Loại chuyến bay:  Khứ hồi </h4>
+                            }
+                            else
+                            {
+                                <h4 class="text-danger" style="margin-left: 30px; font-size: 40px;">Loại chuyến bay:  Một chiều </h4>
+                            }
+                            @{ var sum = 0;}
+                            @foreach (var item in Model)
+                            {
+                                <div class="container_ticket">
+                                    <div class="container_ticket-name">
+                                        <i class="fa fa-plane" aria-hidden="true"></i>
+                                        Chuyến bay bạn đã lựa chọn
+                                    </div>
+                                    <div class="form_ticket">
+                                        <div class="container_ticket" name="container_ticket">
+                                            <ul class="container_ticket-list" name="container_ticket-list">
+                                                <li class="container_ticket-list-item">
+                                                    <div class="container_ticket-airline" name="container_ticket-airline">
+                                                        <img name="container_ticket-airline-img" class="container_ticket-airline-img" src="~/public/images/flight/@item.airline" alt="">
+                                                        <span>@item.name</span>
+                                                        </div>
+                                                </li>
+                                                <li class="container_ticket-list-item">
+                                                    <ul class="container_ticket-time" name="container_ticket-time">
+                                                        <li class="container_ticket-timeStart" name="container_ticket-timeStart">
+                                                            @item.departure_time
+                                                        </li>
+                                                        <li class="container_ticket-time-icon" name="container_ticket-time-icon">--------------<i class="container_ticket-time-iconplane fa fa-plane" aria-hidden="true"></i>--------------<i class="container_ticket-time-iconbuild fa fa-building" aria-hidden="true"></i></li>
+
+
+
+                                                    </ul>
+                                                </li>
+                                                <li class="container_ticket-list-item container_ticket-price" name="container_ticket-price">
+                                                    Giá vé: @item.price.Value.ToString("N0") VNĐ
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-detail-container">
+                                        <div class="form_detail">
+                                            <div class="form_detail-name">
+                                                <i class="fa fa-plane" aria-hidden="true"></i>
+                                                Chi tiết chuyến bay
+                                            </div>
+                                            <div class="form_detail-ticket">
+                                                <ul class="form_detail-ticket-list">
+                                                    <li class="form_detail-ticket-item">
+                                                        <img class="form_detail-logo" src="~/public/images/flight/@item.airline" alt="">
+                                                        <span class="form_detail-ticket-item-name">@item.name</span>
+                                                    </li>
+                                                    <li class="form_detail-ticket-item">
+                                                        <span class="form_detail-location">@item.city.cityName</span>
+                                                        <span class="form_detail-location-airport">@item.city.cityName</span>
+                                                        <div class="form_detail-time">
+                                                            <span class="form_detail-time-hour">@item.departure_time</span>
+                                                            <span class="form_detail-time-day">@item.departure_date.Value.ToString("dd/MM/yyyy")</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="form_detail-ticket-item">
+                                                        <span class="form_detail-location">@item.city1.cityName</span>
+                                                        <span class="form_detail-location-airport">@item.city1.cityName</span>
+
+                                                    </li>
+                                                    <li class="form_detail-ticket-item">
+                                                        <div class="form_detail-trip">
+                                                            <span class="form_detail-plane-name">Mã chuyến bay:</span>
+                                                            <span class="form_detail-trip-id">@item.flightCode</span>
+                                                        </div>
+
+                                                        <div class="form_detail-rank">
+                                                            <span class="form_detail-plane-name">Chuyến bay:</span>
+                                                            <span class="form_detail-trip-id">@item.description</span>
+                                                        </div>
+                                                        <div class="form_detail-rank">
+                                                            <span class="form_detail-plane-name">Hạng vé:</span>
+                                                            <span class="form_detail-trip-id">@item.ticketType</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                sum += (int)item.price;
+                            }
+                            @{ sum = sum * (int)ViewBag.songuoi;
+
+                                }
+                            <h3 class="text-danger">Tổng tiền: @sum.ToString("N0") VNĐ</h3>
+                        </div>
+                    </div>
+
+                    <form action="~/Checkout/checkOut" method="post">
+
+
+                        <input type="hidden" value="@ViewBag.ve1" name="veOnvay" />
+                        <input type="hidden" value="@ViewBag.ve2" name="veReturn" />
+                        <input type="hidden" value="@sum" name="total" />
+                        <div class="row">
+                            <div class="form-group col-xs-6">
+                                <label>Số lượng: </label>
+                                <input type="text" class="form-control" value="@ViewBag.songuoi" disabled>
+                                <input name="guestTotal" type="hidden" class="form-control" value="@ViewBag.songuoi">
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label>Tên khách hàng:</label>
+                                <input name="name" type="text" class="form-control" id="Name" placeholder="Tên của bạn" required>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Email:</label>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="abc@xyz.com" required>
+                            </div>
+                            <div class="form-group col-xs-6 col-left-padding">
+                                <label>Số điện thoại:</label>
+                                <input name="phone" type="tel" required class="form-control" id="phnumber" placeholder="0...." />
+                                <span asp-validation-for="phone" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-xs-6">
+                                <label>Giới tính: </label>
+                                <select required name="gioitinh">
+
+                                    <option value="female" selected>Nữ</option>
+                                    <option value="male">Nam</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-6 col-left-padding">
+                                <label>Quốc tịch:</label>
+                                <select required name="quoctich">
+                                    <option value="VN">Việt Nam</option>
+                                    <option value="K">Khác</option>
+
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <h3 style="margin: 40px 0px 20px 0px; color: #071d7e">Chọn hình thức thanh toán</h3>
+                        <h5>Lưu ý: Quý khách vui lòng thanh toán trong vòng 24h để đặt vé thành công, nếu không vé sẽ bị hủy</h5>
+                        <div style="display:flex;flex-direction:column; margin-bottom:50px;">
+                            <div style="width: 90%; border-top: 1px solid #e0dfdf; border-bottom: 1px solid #e0dfdf; height: 50px; display: flex; align-items: center; padding: 40px 20px; font-size: 18px ;font-weight:300 ;margin:0 40px;">
+                                <input type="radio" name="radioGroup" id="radio1">
+
+                                <label for="radio1" style="position: relative; top: 3px; color: #bcbcbe">Thanh toán bằng chuyển khoản</label>
+                            </div>
+                            <div style="width: 90%; border-top: 1px solid #e0dfdf; border-bottom: 1px solid #e0dfdf; height: 50px; display: flex; align-items: center; padding: 40px 20px; font-size: 18px; font-weight: 300;margin:0 40px; ">
+                                <input type="radio" name="radioGroup" id="radio2" >
+                                <label for="radio2" style="position: relative; top: 3px; color: #bcbcbe">Thanh toán tại quầy</label>
+                            </div>
+                        </div>
+                  
+                        <div id="divToShow" class="content" style="display: none;" name="content">
+                            <div class="containers" name="container">
+                                <!-- form tìm kiếm -->
+                                <div class="form_pay">
+                                    <div class="form">
+                                        <div class="form_order">
+                                            <div class="form_order-name">
+                                                <img src="~/Public/images/flight/vietcombank.jpg" alt="">
+                                                VietComBank
+                                            </div>
+                                            <div class="form_order-code">
+                                                <img src="~/Public/images/flight/img.png" alt="">
+                                                <span style="margin-top:10px;display:flex;justify-content:center;">STK: 096884374773</span>
+                                            </div>
+                                            <div class="form_order-price">
+                                                <span>Số tiền phải thanh toán</span>
+                                                <div class="form_order-price-name">@sum.ToString("N0") VNĐ</div>
+                                            </div>
+                                        </div>
+                                        <div class="form_infomation">
+                                            <div class="form_pay-header">
+                                                <div class="form_pay-header-name">
+                                                    Thông tin tài khoản thanh toán
+                                                </div>
+
+                                            </div>
+                                            <div class="form_pay-container">
+                                                <ul class="form_pay-container-menu">
+
+
+                                                    <li class="form_pay-container-item">
+                                                        <label class="form_pay-container-item-label" for="bankname">Ngân hàng</label>                                                       
+                                                    <select class="" name="bankname" type="text" placeholder="Tên ngân hàng">
+                                                        <option value="BIDV">BIDV</option>
+                                                        <option value="VietComBank">VietComBank</option>
+                                                        <option value="VietTinBank">VietTinBank</option>
+                                                        <option value="MBBANK">MBBANK(ngân hàng quân đội)</option>
+                                                        <option value="Sacombank">Sacombank</option>
+                                                        <option value="OCB">OCB	</option>
+                                                        <option value="TPBank">TPBank	</option>
+                                                        <option value="MSB">MSB	</option>
+                                                        <option value="VPBank">VPBank	</option>
+                                                        <option value="Techcombank">Techcombank	</option>
+                                                    </select>
+                                                    </li>
+                                                    <li class="form_pay-container-item">
+                                                        <label class="form_pay-container-item-label" for="banknumber">Số tài khoản</label>
+                                                        <input class="form_pay-container-item-input" name="banknumber" type="text" placeholder="Nhập số tài khoản">
+                                                    </li>
+                                                    <li class="form_pay-container-item">
+                                                        <label class="form_pay-container-item-label" for="card">Tên thẻ</label>
+                                                        <input class="form_pay-container-item-input" name="mess" type="text" placeholder="Mã thẻ">
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                <div class="container ">
+                    <div class="row" style="padding-bottom:50px;">
+                        <div class="row" style="padding-bottom:50px">
+                            <div class="col-md-10">
+
+                            </div>
+
+                            <div>
+                                <button class="btn-blue btn-red btn-style-1" type="submit">Đặt vé</button>
+                                <a href="/Checkout/checkOut"></a>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+

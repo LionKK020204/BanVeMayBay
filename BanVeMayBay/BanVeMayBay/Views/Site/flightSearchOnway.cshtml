@@ -1,0 +1,107 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<BanVeMayBay.Models.ticket>
+@{
+    ViewBag.Title = "flightSearch";
+    Layout = "~/Views/Shared/_layOutSite.cshtml";
+}
+
+<section class="flight-destinations">
+    <div class="container bg-white">
+        <div class="row">
+            <form action="~/Checkout/Index" method="post">
+                <input type="hidden" name="songuoi" value="@ViewBag.songuoi" />
+                <div class="col-md-12 col-sm-12" style="padding-top:80px;">
+                    <div class="flight-head">
+                        <div class="">
+                            <nav aria-label="breadcrumb">
+                                <span style="font-weight:bold; font-size:22px;"><i class="fas fa-fighter-jet"></i> Chọn chuyến bay </span>
+                                <span style="font-weight:bold; color:#ff6a00; font-size:22px;"> @ViewBag.noibay </span> - Đến -<span style="font-weight:bold; color:#ff6a00; font-size:22px;"> @ViewBag.noiVe </span><br />
+                                <span style="font-weight:bold; font-size:22px;"><i class="fas fa-calendar-day"></i>Ngày bay </span>
+                                <span style="font-weight:bold; color:#ff0000; font-size:22px;"> @ViewBag.ngaybay </span>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="flight-table">
+                        <table id="myTable1">
+                            <thead>
+                                <tr>
+                                    <th>Hãng vé</th>
+                                    <th>Tên Hãng</th>
+                                    <th>Giờ bay</th>
+                                    <th>Giờ đến</th>
+                                    <th>Hạng vé</th>
+                                    <th>Giá vé</th>
+                                    <th>Chi tiết</th>
+                                    <th>Tác vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            <img style="width:70px;height:50px" src="~/public/images/flight/@item.airline" alt="">
+                                        </td>
+                                        <td>
+                                            <h6>@item.name</h6>
+
+                                        </td>
+
+                                        <td>
+                                            <h6>@item.departure_time</h6>
+
+                                        </td>
+                                        <td>
+                                            <h6>@item.arrival_time</h6>
+
+                                        </td>
+                                        <td>@item.ticketType</td>
+                                        <td>
+                                            <h6><strong class="color-red-3">@item.price.Value.ToString("N0") VNĐ</strong></h6>
+
+                                        </td>
+                                        <td>
+                                            <a href="~/chuyen-bay/@item.id">Chi tiết</a>
+                                        </td>
+
+                                        <td>
+
+                                            @Html.RadioButton("datve", item.id, new { name = "idTitket", required = "required" })
+                                            @Html.Label("Đặt")
+                                        </td>
+                                    </tr>
+                                }
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    
+
+                </div>
+
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-10" style="padding-bottom:50px;">
+
+                        </div>
+
+                        <button class="btn-blue btn-red btn-style-1 " type="submit">Đặt vé</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+<!-- Destination Ends -->
+<script>
+    $("#active_@Model.PageNumber").addClass("active");
+
+    function ajaxShowItem(t) {
+        console.log(t.value)
+    }
+</script>

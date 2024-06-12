@@ -1,0 +1,205 @@
+﻿@model BanVeMayBay.Models.ticket
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_layOutAdmin.cshtml";
+}
+
+<style>
+    .button {
+        width: 100px;
+        height: 100px;
+        margin-left: 50%;
+        border: 1px solid rgb(173, 173, 174);
+        margin-top: 20px;
+        border-radius:4px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.3);
+        
+        
+    }
+</style>
+<div class="card card-title bg-white p-1">
+    <div class="row">
+        <div class="col-md-6 "> <h5 class="pl-2 mt-2 text-blues">Thêm vé </h5> </div>
+        <div class="col-md-6 m-0">
+            <ol class="breadcrumb bg-white float-sm-right m-0">
+                <li class="breadcrumb-item"><a href="/Admin">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Thêm vé</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<section class="@*container pt-2 card*@ card card-title bg-white p-1">
+    @Html.Partial("_MessgeAlert")
+    <div class="container bg-white pt-4 " style="margin-bottom:30px">
+
+        @using (Html.BeginForm("Create", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class=" row ">
+                <div class="col-md-4">  </div>
+                <div class="col-md-4"> <h3 class="text-center font-weight-bold text-success ">Thêm vé</h3> </div>
+                <div class="col-md-4 ">
+                    <div class="float-right">
+                        <button class="btn btn-sm bg-success btn-custom mr-1 ml-1 text-white"><i class="far fa-save"></i> Lưu</button>
+                        <a href="~/admin/Tickets" class="btn btn-sm bg-danger btn-custom text-white"><i class="far fa-window-close"></i> Hủy</a>
+                    </div>
+                </div>
+            </div>
+            <div class=" row ">
+                <div class="col-md-10">
+                    <div>
+
+                        <label for="psw"><span class="text-secondary font-weight-bold">Hãng máy bay</span></label>
+                        <input id="imageInput" type="file" class="form-control" name="airline" accept="image/*" required />
+                        <div id="imageContainer" class="button"></div>
+
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Tên vé</span></label>
+                        <input type="text" name="name" class="form-control" value="" required />
+
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Mô tả chi tiết</span></label>
+                        <input type="text" name="description" class="form-control" value="" required />
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-5 ">
+
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Nơi đi</span></label>
+                        <select name="fromAirport" class="selectpicker form-control" tabindex="1">
+
+                            @foreach (var item in ViewBag.cities)
+                            {
+                                <option value="@item.cityId">@item.cityName</option>
+                            }
+
+
+                        </select>
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Nơi đến</span></label>
+                        <select name="toAirport" class="selectpicker form-control" tabindex="1">
+
+                            @foreach (var item in ViewBag.cities)
+                            {
+                                <option value="@item.cityId">@item.cityName</option>
+                            }
+
+
+                        </select>
+
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Mã chuyến bay</span></label>
+                        <input type="text" name="flightCode" class="form-control" value="" placeholder="" required />
+                        <span asp-validation-for="flight" class="text-danger"></span>
+                    </div>
+
+
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Hạng vé</span></label>
+                        <select name="ticketType" class="selectpicker form-control" tabindex="1">
+
+                            <option selected value="Hạng phổ thông">Hạng phổ thông</option>
+                            <option value="Hạng thương gia">Hạng thương gia</option>
+                        </select>
+
+                    </div>
+
+
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Số chỗ ngồi</span></label>
+                        <input type="number" name="guestTotal" class="form-control" value="" placeholder="số chỗ  >= 50" required  />
+                        <span asp-validation-for="guestTotal" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-5">
+                    <div>
+
+                        <label for="psw"><span class="text-secondary font-weight-bold">Ngày đi</span></label>
+                        <input type="date" name="departure_date" class="form-control" value="" required />
+
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Giờ bay</span></label>
+                        <input type="time" name="departure_time" class="form-control" value="" required />
+
+
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Giờ đến</span></label>
+                        <input type="time" name="arrival_time" class="form-control" value="" required />
+
+
+                    </div>
+                    @*<div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Hãng máy bay</span></label>
+                        <input type="file" class="form-control" name="airline" required />
+
+                    </div>*@
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Price</span></label>
+                        <input type="number" name="price" class="form-control" placeholder="Việt Nam đồng" value="" @*required min="30" max="3000"*@ />
+                        <span asp-validation-for="price" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label for="psw"><span class="text-secondary font-weight-bold">Trang thái</span></label>
+                        <select name="status" class="selectpicker form-control" tabindex="1">
+                            <option value="1">Hiện</option>
+                            <option value="2">Ẩn</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+</section>
+<script>
+    // Lấy tham chiếu đến input chứa tập tin hình ảnh
+    var imageInput = document.getElementById("imageInput");
+
+    // Lắng nghe sự kiện thay đổi khi người dùng chọn tập tin hình ảnh mới
+    imageInput.addEventListener("change", function(event) {
+        // Kiểm tra xem người dùng đã chọn tập tin hình ảnh chưa
+        if (imageInput.files && imageInput.files[0]) {
+            // Lấy tập tin hình ảnh từ input
+            var imageFile = imageInput.files[0];
+
+            // Tạo một đối tượng FileReader để đọc nội dung của tập tin
+            var reader = new FileReader();
+
+            // Định nghĩa hàm xử lý khi FileReader hoàn thành việc đọc tập tin
+            reader.onload = function(event) {
+                // Tạo một thẻ img để hiển thị ảnh
+                var imageElement = document.createElement("img");
+
+                // Đặt thuộc tính src của thẻ img bằng dữ liệu ảnh đã đọc được
+                imageElement.src = event.target.result;
+
+                // Thêm thẻ img vào phần tử container để hiển thị ảnh
+                var imageContainer = document.getElementById("imageContainer");
+                imageContainer.innerHTML = ''; // Xóa bất kỳ ảnh nào đã hiển thị trước đó
+                imageContainer.appendChild(imageElement);
+                //imageInput.style.display = "none";
+                imageContainer.style.border = "none";
+            };
+
+            // Đọc tập tin hình ảnh như một chuỗi dữ liệu URL
+            reader.readAsDataURL(imageFile);
+        }
+    });
+</script>

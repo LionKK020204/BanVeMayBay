@@ -1,0 +1,83 @@
+﻿@model BanVeMayBay.Models.order
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layOutAdmin.cshtml";
+}
+
+<div class="container bg-white">
+    <div class="row">
+        <div class="col-md-7">
+            <h3>Chi tiết đặt vé</h3>
+            <table class="table border">
+                <tbody>
+                    <tr>
+                        <td class="title">ID đặt vé</td>
+                        <td class="b-id">@Model.ID</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Khách hàng</td>
+                        <td>@Model.name </td>
+                    </tr>
+                    <tr>
+                        <td class="title">Email</td>
+                        <td>@Model.email</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Số điện thoại</td>
+                        <td>@Model.phone</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Số lượng </td>
+                        <td>@Model.guestTotal</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Giới tính</td>
+                        <td>@Model.gioitinh</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Quốc gia</td>
+                        <td>@Model.quoctich</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title">Ngày tạo</td>
+                        <td>@Model.created_ate </td>
+                    </tr>
+                    <tr>
+                        <td class="title">Tổng tiền:</td>
+                        <td><h4 class="text-danger"> @Model.total.ToString("N0") VNĐ</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-md-5">
+            @Html.Action("_BookingConnfig", "Orders", new { orderId = Model.ID })
+
+        </div>
+    </div>
+    <div class="flight_button-form" style="background-color: rgb(247, 7, 163);color:#fff;width:100px;height:40px;margin-top:50px;float:left">
+        <a style="display:flex;justify-content:center;padding:8px 0" href="javascript:void(0);" onclick="window.history.back();">trở về</a>
+    </div>
+</div>
+
+<style>
+    .title {
+        font-size: 17px;
+        font-weight: bold;
+        padding-right: 50px;
+        color: #ff0000;
+    }
+
+
+    .flight_button-form a {
+        color: #fff;
+    }
+
+    .flight_button-form:hover {
+        background-color: #ee6acf;
+    }
+
+
+</style>

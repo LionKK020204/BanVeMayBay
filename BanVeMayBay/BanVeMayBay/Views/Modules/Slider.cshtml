@@ -1,0 +1,71 @@
+﻿<style>
+   .carousel-inner> .item > img{
+       height:470px;
+   }
+</style>
+    <!-- Carousel container -->
+    <div id="my-pics" class="carousel slide" data-ride="carousel" style="width:100%;margin:auto;height:auto">
+
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#my-pics" data-slide-to="0" class="active"></li>
+            <li data-target="#my-pics" data-slide-to="1"></li>
+            <li data-target="#my-pics" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Content -->
+        <div class="carousel-inner" role="listbox">
+
+            <!-- Slide 1 -->
+            <div class="item active">
+                <img src="~/Public/images/flight/vietject3.jpg" alt="vietject">
+                <div class="carousel-caption">
+                    <h3 style="color:white">VietJet</h3>
+                    <p style="color:white">An toàn và nhanh chóng</p>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="item">
+                <img src="~/Public/images/flight/Bamboo.jpg" alt="Bamboo">
+                <div class="carousel-caption" >
+                    <h3 style="color:white">Bamboo</h3>
+                    <p style="color:white">Bay là thích ngay</p>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="item">
+                <img src="~/Public/images/flight/vietnamairline.jpg" alt="vietnam airline">
+                <div class="carousel-caption">
+                    <h3 style="color:white">Việt Nam Airline</h3>
+                    <p style="color:white">Sự hài lòng của bạn là niềm vui của chúng tôi</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Previous/Next controls -->
+        <a class="left carousel-control" href="#my-pics" role="button" data-slide="prev">
+            <span class="icon-prev" aria-hidden="true"></span>
+            <span class="sr-only">Trước</span>
+        </a>
+        <a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
+            <span class="icon-next" aria-hidden="true"></span>
+            <span class="sr-only">Sau</span>
+        </a>
+
+    </div>
+
+
+<script>
+    // Initialize tooltip component
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Initialize popover component
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>

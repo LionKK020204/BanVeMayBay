@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BanVeMayBay.Models.ticket>
+
+
+<h2>Thông tin vé</h2>
+
+@foreach (var item in Model)
+{
+<table class="table border" style="margin-top:20px;">
+    <tbody>
+        <tr>
+            <td class="title">Giá vé</td>
+            <td class="b-id text-danger">@item.price.Value.ToString("N0") VNĐ</td>
+        </tr>
+        <tr>
+            <td class="title">Thời gian đi</td>
+            <td>@item.departure_date</td>
+        </tr>
+        <tr>
+            <td class="title">Nơi đi</td>
+            <td>@item.city.cityName</td>
+        </tr>
+
+        <tr>
+            <td class="title">Nơi đến</td>
+            <td>@item.city1.cityName</td>
+        </tr>
+        <tr>
+            <td class="title">Giờ bay</td>
+            <td>@item.departure_time</td>
+        </tr>
+        <tr>
+            <td class="ArriveTime">Giờ đến</td>
+            <td>@item.arrival_time</td>
+        </tr>
+    </tbody>
+</table>
+}
+

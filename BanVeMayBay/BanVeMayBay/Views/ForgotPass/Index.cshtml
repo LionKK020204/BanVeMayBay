@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layOutSite.cshtml";
+}
+<style>
+    .form_container {
+        display: flex;
+        justify-content: center;
+        margin-bottom:50px;
+        width:300px;
+        padding-bottom:50px;
+    }
+
+    .form_forgot {
+        background-color:#fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 50px 0 20px 0;
+        width: 100%;
+        height:200px;
+
+    }
+
+    .form_forgot-name {
+        margin-top: 50px;
+        margin-bottom:20px;
+        font-weight:700;
+        font-size:24px;
+    }
+
+    .form_forgot-input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .form_forgot-label {
+        margin: 10px 0;
+        color: red;
+        font-size:20px;
+    }
+
+    .form_forgot-email {
+        
+        height: 25px;
+    }
+
+    .form-button {
+        width: 100%;
+        margin-bottom: 50px;
+        margin-top:20px;
+    }
+
+    .form_forgot-button {
+        float: right;
+        height: 25px;
+        width: 50px;
+        border-radius: 2px;
+        background-color: rgb(10, 156, 13);
+        border: none;
+        color: #fff;
+    }
+</style>
+
+<form action="" method="post">
+    <div>
+        <label class="form_forgot-label">@ViewBag.succes</label>
+    </div>
+
+    <div class="form_container">
+        <div class="form_forgot">
+            <div class="form_forgot-name">
+                Nhập Email
+            </div>
+            <div class="form_forgot-input">
+                <input class="form_forgot-email" type="email" name="enteremail">
+                <div class="form-button">
+                    <button class="form_forgot-button" type="submit">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

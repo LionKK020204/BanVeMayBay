@@ -1,0 +1,72 @@
+﻿@{
+        ViewBag.Title = "flightSearch";
+        Layout = "~/Views/Shared/_layOutSite.cshtml";
+    }
+
+
+<section class="login-block">
+    <form action="" method="post">
+        <div class="container" style="margin-bottom:100px">
+            @Html.Partial("_MessgeAlert")
+            <div class="row">
+                <div class="col-md-4 login-sec">
+                    <h2 class="text-center" style="color:blue">Đăng nhập</h2>
+                    <form class="login-form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="text-uppercase">Tên đăng nhập</label>
+                            <input type="text" class="form-control" name="username">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="text-uppercase">Mật khẩu</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                        <span class="text-danger">@ViewBag.error</span>
+
+                        <div class="form-check">
+                            <div style="display:flex;justify-content:space-between">
+
+
+                                <label class="form-check-label" style="float:left">
+                                    <input type="checkbox" class="form-check-input">
+                                    <small>Nhớ mật khẩu</small>
+                                </label>
+                                <div style="">
+                                    <a href="~/ForgotPass/Index">Quên mật khẩu?</a>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn-blue btn-red btn-style-1 pt-2">Đăng nhập</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                
+                <div class="col-md-8 banner-sec">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div>
+                            <div>
+                                <img src="~/Public/images/flight/login.jpg" width="650" height="400">
+
+                               
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </form>
+
+</section>
+<!-- Destination Ends -->
